@@ -1,10 +1,10 @@
 #ifndef _GRID_UTILS_H_
-# define _GRID_UTILS_H_ 1
+# define _GRID_UTILS_H_
 
 # include <stdlib.h>
-# include <stdio.h>
 
 # include "utils.h"
+# include "evolving.h"
 
 # define CELL_DEAD	0
 # define CELL_ALIVE	1
@@ -16,7 +16,7 @@
 # define MODE_ALIVE	1
 # define MODE_ROLL	2
 
-# define ACTION_DIE	0
+# define ACTION_DIE     0
 # define ACTION_BORN	1
 # define ACTION_STAY	2
 
@@ -31,7 +31,6 @@ void	allocate_grid(t_grid *grid);
 void	destroy_grid(t_grid *grid);
 void	display_grid(t_grid *grid);
 void	fill_grid(t_grid *grid, int value);
-void	evoluate_grid(t_grid *grid, int (*condition)(char *), int mode);
 void	random_fill(t_grid *grid, int perc);
 t_grid	*copy_grid(t_grid *grid);
 

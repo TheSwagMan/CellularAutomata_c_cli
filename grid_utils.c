@@ -73,53 +73,6 @@ void	fill_grid(t_grid *grid, int value)
 			grid->grid[i][j] = value;
 }
 
-/*
- * Evoluate a grid following a condition and a mode.
- */
-void	evoluate_grid(t_grid *grid, int (*condition)(char *), int mode)
-{
-	/* array of the cell and around cells */
-	char *around;
-	t_grid *cpy;
-	int i, j, k;
-	int mi, mj;
-	int c;
-
-	cpy = copy_grid(grid);
-	if (!(around = (char *)malloc(9 * sizeof(char))))
-		raise_error(ERR_MALLOC);
-	for (i = 0; i < grid->size_y; i++)
-	{
-		for (j = 0; j < grid->size_x; j++)
-		{
-			for (k = 0; k < 9; k++)
-			{
-				/* calculation of next cells coordinates */
-				mi = i + ((k / 3) - 1);
-				mj = j + ((k % 3) - 1);
-				if (mi < 0 || mi >= cpy->size_y
-						|| mj < 0 || mi >= cpy->size_x)
-				{
-					if (mode == MODE_ALIVE)
-						around[k] = CELL_ALIVE;
-					if (mode == MODE_DEAD)
-						around[k] = CELL_DEAD;
-					if (mode == MODE_ROLL)
-						around[k] = cpy->grid[mi % cpy->size_y]
-							[mj % cpy->size_x];
-				} else
-					around[k] = cpy->grid[mi][mj];
-
-			}
-			c = condition(around);
-			if (c == ACTION_BORN)
-				grid->grid[i][j] = CELL_ALIVE;
-			if (c == ACTION_DIE)
-				grid->grid[i][j] = CELL_DEAD;
-		}
-	}
-	destroy_grid(cpy);
-}
 
 void	random_fill(t_grid *grid, int perc)
 {

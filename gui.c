@@ -5,7 +5,9 @@ void	gui(void)
 	t_com *c;
 	t_grid *grid = NULL;
 	int i, n, t;
+	char *rule;
 
+	rule = (char *)CONWAYS;
 	while (1)
 	{
 		c = query_user();
@@ -101,7 +103,7 @@ void	gui(void)
 						n = atoi(c->args[0]);
 						for (i = 0; i < n; i++)
 						{
-							evoluate_grid(grid, &conways, MODE_DEAD);
+							evoluate_grid(grid, rule, MODE_DEAD);
 							display_grid(grid);
 							usleep(1000 * t);
 						}
@@ -109,6 +111,11 @@ void	gui(void)
 					}
 				}
 				break;
+            case 'j':
+                if (c->nargs < 1)
+					printf("%c command needs 1 argument !\n", c->command);
+                else
+                    rule = c->args[0];
 			default:
 				printf("%c command does not exist !\n", c->command);
 
